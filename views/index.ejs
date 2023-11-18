@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jQuery/3.4.0/jQuery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@500&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+    <title>Pomodoro Timer</title>
+</head>
+
+<body class="body">
+    <div class="timer-section">
+        <div class="buttons-mode">
+            <button id="btn1" class="button1">Start Seation</button>
+            <button id="btn2" class="button2">Short Break</button>
+            <button id="btn3" class="button3">Long Break</button>
+        </div>
+        <div id="countdown">
+            <p>00:00:00</p>
+        </div>
+        <div class="timers-contral">
+            <button id="btn4"class="button4">Start</button>
+            <button id="btn5"class="button4">Pause</button>
+            <button id="btn6"class="button5">Reset</button> 
+        </div>
+    </div>
+    
+    <script>
+        function pomo_start(y){
+            var counterDownDate=new Date();
+                counterDownDate.setMinutes(counterDownDate.getMinutes()+y);
+
+                var x=setInterval(function(){
+                    var distance=counterDownDate-new Date().getTime();
+
+                    var minutes=Math.floor((distance%(1000*60*60))/(1000*60)); 
+                    var seconds=Math.floor((distance%(1000*60))/1000);
+                    $("#countdown").html(minutes + "m " + seconds + "s ");
+
+                    if(distance<0){
+                        clearInterval(x);
+                        $("#countdown").html("EXPIRED");
+                    }
+
+
+                },1000);  
+        }
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $(document).ready(function(){
+            $(".button1").click(function(){
+                $("body").addClass("body");
+                $("body").removeClass("short-break-color");
+                $("body").removeClass("long-break-color");    
+                var m = $(this).hasClass("button1");
+                console.log(m);
+                
+                
+                if(m === true){
+                    $(document).ready(function(){
+                        $("#btn4").click(function(){
+                            pomo_start(25);
+                        });
+                        
+                    });
+        
+                }
+            });
+        });
+    
+            $(".button2").click(function(){
+                $("body").addClass("short-break-color");
+                $("body").removeClass("long-break-color");
+                $("body").removeClass("body"); 
+                var u=$(this).hasClass("button2");   
+                console.log(u);
+
+                if(u === true){
+                    $(document).ready(function(){
+                        $("#btn4").click(function(){
+                            pomo_start(15);
+                        });
+                    });
+        
+                }
+
+            });
+            $(".button3").click(function(){
+                $("body").addClass("long-break-color");
+                $("body").removeClass("short-break-color");
+                $("body").removeClass("body"); 
+                var o=$(this).hasClass("button3");   
+                console.log(o);
+                if(o === true){
+                    $(document).ready(function(){
+                        $("#btn4").click(function(){
+                            pomo_start(15);
+                        });
+                    });
+        
+                }
+        });
+
+
+
+
+
+
+
+    </script>
+    
+    
+    
+</body>
